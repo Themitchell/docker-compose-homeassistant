@@ -1,0 +1,78 @@
+---
+version: '3'
+
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: homeassistant/home-assistant
+    volumes:
+      - ./homeassistant/data:/config
+
+      - ./homeassistant/config/blueprints/:/config/blueprints/
+      - ./homeassistant/config/configuration/:/config/configuration/
+      - ./homeassistant/config/custom_components/:/config/custom_components/
+      - ./homeassistant/config/themes/:/config/themes/
+      - ./homeassistant/config/www/:/config/www/
+
+      - ./homeassistant/config/automations.yaml:/config/automations.yaml
+      - ./homeassistant/config/configuration.yaml:/config/configuration.yaml
+      - ./homeassistant/config/scenes.yaml:/config/scenes.yaml
+      - ./homeassistant/config/scripts.yaml:/config/scripts.yaml
+      - ./homeassistant/config/secrets.yaml:/config/secrets.yaml
+
+      # - /sys/class/thermal/thermal_zone0/temp:/sys/class/thermal/thermal_zone0/temp
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: ETC/UTC
+    ports:
+      - 80:80
+    depends_on:
+      - mariadb
+      - mosquitto
+    restart: unless-stopped
+
+  mariadb:
+    image: linuxserver/mariadb
+    container_name: mariadb
+    env_file: .env
+    environment:
+      PUID: 1000
+      PGID: 1000
+    volumes:
+      - ./mariadb/data:/config
+      - ./mariadb/logs:/config/log
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    user: "1000:1000"
+    ports:
+      - "1883:1883"
+    volumes:
+      - "./mosquitto/config:/mosquitto/config"
+      - "./mosquitto/data:/mosquitto/data"
+      - "./mosquitto/logs:/mosquitto/log"
+    environment:
+      - TZ=ETC/UTC
+    restart: unless-stopped
+
+  zwave-js-ui:
+    container_name: zwave-js-ui
+    image: zwavejs/zwave-js-ui
+    devices:
+      - ${ZWAVE_DEVICE_ID}:/dev/zwave
+    env_file:
+      - .env
+    environment:
+      ZWAVEJS_EXTERNAL_CONFIG: /usr/src/app/db
+    ports:
+      - 3002:3000
+      - 8091:8091
+    volumes:
+      - ./zwave-js-ui/store:/usr/src/app/store
+      - ./zwave-js-ui/db:/usr/src/app/db
+    restart: unless-stopped
