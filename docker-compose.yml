@@ -6,19 +6,19 @@ services:
     container_name: homeassistant
     image: homeassistant/home-assistant
     volumes:
-      - ./homeassistant/data:/config
+      - ./config/homeassistant/blueprints/:/config/blueprints/
+      - ./config/homeassistant/configuration/:/config/configuration/
+      - ./config/homeassistant/custom_components/:/config/custom_components/
+      - ./config/homeassistant/themes/:/config/themes/
+      - ./config/homeassistant/www/:/config/www/
 
-      - ./homeassistant/config/blueprints/:/config/blueprints/
-      - ./homeassistant/config/configuration/:/config/configuration/
-      - ./homeassistant/config/custom_components/:/config/custom_components/
-      - ./homeassistant/config/themes/:/config/themes/
-      - ./homeassistant/config/www/:/config/www/
+      - ./config/homeassistant/automations.yaml:/config/automations.yaml
+      - ./config/homeassistant/configuration.yaml:/config/configuration.yaml
+      - ./config/homeassistant/scenes.yaml:/config/scenes.yaml
+      - ./config/homeassistant/scripts.yaml:/config/scripts.yaml
+      - ./config/homeassistant/secrets.yaml:/config/secrets.yaml
 
-      - ./homeassistant/config/automations.yaml:/config/automations.yaml
-      - ./homeassistant/config/configuration.yaml:/config/configuration.yaml
-      - ./homeassistant/config/scenes.yaml:/config/scenes.yaml
-      - ./homeassistant/config/scripts.yaml:/config/scripts.yaml
-      - ./homeassistant/config/secrets.yaml:/config/secrets.yaml
+      - ./data/homeassistant:/config
 
       # - /sys/class/thermal/thermal_zone0/temp:/sys/class/thermal/thermal_zone0/temp
     environment:
@@ -40,8 +40,8 @@ services:
       PUID: 1000
       PGID: 1000
     volumes:
-      - ./mariadb/data:/config
-      - ./mariadb/logs:/config/log
+      - ./data/mariadb:/config
+      - ./log/mariadb:/config/log
     ports:
       - "3306:3306"
     restart: unless-stopped
@@ -53,9 +53,9 @@ services:
     ports:
       - "1883:1883"
     volumes:
-      - "./mosquitto/config:/mosquitto/config"
-      - "./mosquitto/data:/mosquitto/data"
-      - "./mosquitto/logs:/mosquitto/log"
+      - "./config/mosquitto:/mosquitto/config"
+      - "./data/mosquitto:/mosquitto/data"
+      - "./log/mosquitto:/mosquitto/log"
     environment:
       - TZ=ETC/UTC
     restart: unless-stopped
@@ -73,6 +73,6 @@ services:
       - 3002:3000
       - 8091:8091
     volumes:
-      - ./zwave-js-ui/store:/usr/src/app/store
-      - ./zwave-js-ui/db:/usr/src/app/db
+      - ./data/zwave-js-ui/store:/usr/src/app/store
+      - ./data/zwave-js-ui/db:/usr/src/app/db
     restart: unless-stopped

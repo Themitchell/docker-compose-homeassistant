@@ -1,21 +1,21 @@
 *.env
-homeassistant/config/*
-!homeassistant/config/.gitkeep
+config/homeassistant/*
+!config/homeassistant/.gitkeep
 
-homeassistant/data/*
-!homeassistant/data/.gitkeep
+data/homeassistant/*
+!data/homeassistant/.gitkeep
 
-mariadb/data/*
-!mariadb/data/.gitkeep
-mariadb/logs/*
-!mariadb/logs/.gitkeep
+data/mariadb/*
+!data/mariadb/.gitkeep
+log/mariadb/*
+!log/mariadb/.gitkeep
 
-mosquitto/data/*
-!mosquitto/data/.gitkeep
-mosquitto/logs/*
-!mosquitto/logs/.gitkeep
+data/mosquitto/*
+!data/mosquitto/.gitkeep
+log/mosquitto/*
+!log/mosquitto/.gitkeep
 
-zwave-js-ui/db/*
-!zwave-js-ui/db/.gitkeep
-zwave-js-ui/store/*
-!zwave-js-ui/store/.gitkeep
+data/zwave-js-ui/db/*
+!data/zwave-js-ui/db/.gitkeep
+data/zwave-js-ui/store/*
+!data/zwave-js-ui/store/.gitkeep
