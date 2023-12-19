@@ -6,18 +6,6 @@ services:
     container_name: homeassistant
     image: homeassistant/home-assistant
     volumes:
-      - ./config/homeassistant/blueprints/:/config/blueprints/
-      - ./config/homeassistant/configuration/:/config/configuration/
-      - ./config/homeassistant/custom_components/:/config/custom_components/
-      - ./config/homeassistant/themes/:/config/themes/
-      - ./config/homeassistant/www/:/config/www/
-
-      - ./config/homeassistant/automations.yaml:/config/automations.yaml
-      - ./config/homeassistant/configuration.yaml:/config/configuration.yaml
-      - ./config/homeassistant/scenes.yaml:/config/scenes.yaml
-      - ./config/homeassistant/scripts.yaml:/config/scripts.yaml
-      - ./config/homeassistant/secrets.yaml:/config/secrets.yaml
-
       - ./data/homeassistant:/config
 
       # - /sys/class/thermal/thermal_zone0/temp:/sys/class/thermal/thermal_zone0/temp
