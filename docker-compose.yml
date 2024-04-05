@@ -77,13 +77,9 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./config/frigate:/config
-      - /Volumes/Surveillance:/media/frigate
-      - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
-        target: /tmp/cache
-        tmpfs:
-          size: 1000000000
+      - /mnt/Surveillance:/media/frigate
     ports:
-      - "9191:5000"
+      - "5000:5000"
       - "8554:8554" # RTSP feeds
       - "8555:8555/tcp" # WebRTC over tcp
       - "8555:8555/udp" # WebRTC over udp
