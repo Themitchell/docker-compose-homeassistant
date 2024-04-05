@@ -19,3 +19,6 @@ data/zwave-js-ui/db/*
 !data/zwave-js-ui/db/.gitkeep
 data/zwave-js-ui/store/*
 !data/zwave-js-ui/store/.gitkeep
+
+config/frigate/*
+!config/frigate/config.yml

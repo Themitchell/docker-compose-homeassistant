@@ -64,3 +64,29 @@ services:
       - ./data/zwave-js-ui/store:/usr/src/app/store
       - ./data/zwave-js-ui/db:/usr/src/app/db
     restart: unless-stopped
+
+  frigate:
+    container_name: frigate
+    image: ghcr.io/blakeblackshear/frigate:0.13.2
+    shm_size: "64mb" # update for your cameras based on calculation above
+    # devices:
+      # - /dev/bus/usb:/dev/bus/usb  # Passes the USB Coral, needs to be modified for other versions
+      # - /dev/apex_0:/dev/apex_0    # Passes a PCIe Coral, follow driver instructions here https://coral.ai/docs/m2/get-started/#2a-on-linux
+      # - /dev/video11:/dev/video11  # For Raspberry Pi 4B
+      # - /dev/dri/renderD128:/dev/dri/renderD128 # For intel hwaccel, needs to be updated for your hardware
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config/frigate:/config
+      - /Volumes/Surveillance:/media/frigate
+      - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+    ports:
+      - "9191:5000"
+      - "8554:8554" # RTSP feeds
+      - "8555:8555/tcp" # WebRTC over tcp
+      - "8555:8555/udp" # WebRTC over udp
+    env_file:
+      - .env
+    restart: unless-stopped
