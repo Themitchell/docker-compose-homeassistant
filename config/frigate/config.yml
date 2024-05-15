@@ -1,7 +1,8 @@
 # yaml-language-server: $schema=http://localhost:9191/api/config/schema.json
 
 mqtt:
-  enabled: False
+  enabled: True
+  host: mosquitto
 
 cameras:
   front_doorbell:
