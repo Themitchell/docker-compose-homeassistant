@@ -18,13 +18,31 @@ cameras:
           roles:
             - detect
 
+  back_doorbell:
+    enabled: True
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/back_doorbell
+          input_args: preset-rtsp-restream
+          roles:
+            - record
+        - path: rtsp://127.0.0.1:8554/back_doorbell_sub
+          input_args: preset-rtsp-restream
+          roles:
+            - detect
+
 go2rtc:
   streams:
     front_doorbell:
-      - "ffmpeg:http://10.0.30.2/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_FRONT_DOORBELL_USERNAME}&password={FRIGATE_FRONT_DOORBELL_PASSWORD}#video=copy#audio=copy#audio=opus"
+      - "ffmpeg:http://10.0.30.2/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_CAMERA_USERNAME}&password={FRIGATE_CAMERA_PASSWORD}#video=copy#audio=copy#audio=opus"
       - rtsp://10.0.30.2/Preview_01_sub
     front_doorbell_sub:
-      - "ffmpeg:http://10.0.30.2/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_FRONT_DOORBELL_USERNAME}&password={FRIGATE_FRONT_DOORBELL_PASSWORD}"
+      - "ffmpeg:http://10.0.30.2/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_CAMERA_USERNAME}&password={FRIGATE_CAMERA_PASSWORD}"
+    back_doorbell:
+      - "ffmpeg:http://10.0.30.3/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_CAMERA_USERNAME}&password={FRIGATE_CAMERA_PASSWORD}#video=copy#audio=copy#audio=opus"
+      - rtsp://10.0.30.2/Preview_01_sub
+    back_doorbell_sub:
+      - "ffmpeg:http://10.0.30.3/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_CAMERA_USERNAME}&password={FRIGATE_CAMERA_PASSWORD}"
 
 record:
   enabled: True
