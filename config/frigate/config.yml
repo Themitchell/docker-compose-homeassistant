@@ -4,6 +4,9 @@ mqtt:
   enabled: True
   host: mosquitto
 
+ffmpeg:
+  hwaccel_args: preset-vaapi
+
 cameras:
   front_doorbell:
     enabled: True
