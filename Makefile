@@ -5,7 +5,7 @@ endif
 
 UID=$(shell id -u)
 GID=$(shell id -g)
-DOCKER_COMPOSE = env VIRTUAL_HOST=${VIRTUAL_HOST} UID=${UID} GID=${GID} docker-compose
+DOCKER_COMPOSE = env VIRTUAL_HOST=${VIRTUAL_HOST} UID=${UID} GID=${GID} docker compose
 
 run:
 	$(DOCKER_COMPOSE) up -d
