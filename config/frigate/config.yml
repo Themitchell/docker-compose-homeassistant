@@ -10,7 +10,7 @@ ffmpeg:
 detectors:
   ov:
     type: openvino
-    device: GPU
+    device: CPU
 
 model:
   width: 300
@@ -19,6 +19,9 @@ model:
   input_pixel_format: bgr
   path: /openvino-model/ssdlite_mobilenet_v2.xml
   labelmap_path: /openvino-model/coco_91cl_bkgr.txt
+
+motion:
+  threshold: 50
 
 cameras:
   front_doorbell:
