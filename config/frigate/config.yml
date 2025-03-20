@@ -6,6 +6,8 @@ mqtt:
 
 ffmpeg:
   hwaccel_args: preset-vaapi
+  output_args:
+    record: preset-record-generic-audio-aac
 
 detectors:
   ov:
@@ -53,12 +55,12 @@ cameras:
 go2rtc:
   streams:
     front_doorbell:
-      - "ffmpeg:http://10.0.30.2/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_CAMERA_USERNAME}&password={FRIGATE_CAMERA_PASSWORD}#video=copy#audio=copy#audio=opus"
+      - "ffmpeg:http://10.0.30.2/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_CAMERA_USERNAME}&password={FRIGATE_CAMERA_PASSWORD}#video=copy#audio=copy#audio=aac"
       - rtsp://10.0.30.2/Preview_01_sub
     front_doorbell_sub:
       - "ffmpeg:http://10.0.30.2/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_CAMERA_USERNAME}&password={FRIGATE_CAMERA_PASSWORD}"
     back_doorbell:
-      - "ffmpeg:http://10.0.30.3/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_CAMERA_USERNAME}&password={FRIGATE_CAMERA_PASSWORD}#video=copy#audio=copy#audio=opus"
+      - "ffmpeg:http://10.0.30.3/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_CAMERA_USERNAME}&password={FRIGATE_CAMERA_PASSWORD}#video=copy#audio=copy#audio=aac "
       - rtsp://10.0.30.2/Preview_01_sub
     back_doorbell_sub:
       - "ffmpeg:http://10.0.30.3/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_CAMERA_USERNAME}&password={FRIGATE_CAMERA_PASSWORD}"
